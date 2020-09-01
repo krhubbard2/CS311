@@ -110,6 +110,7 @@ public:
 private:
 
   int _numb; // Order quantity (range 0 .. infinit)
+  string _name; // Product name
 
 }; // End class ProductOrder
 
