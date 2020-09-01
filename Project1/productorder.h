@@ -28,12 +28,20 @@ public:
 
     // Default constructor
     // Set name to "UNSPECIFIED" and number to "0"
-    ProductOrder(){}
+    ProductOrder()
+    {
+      setName("UNSPECIFIED");
+      setNumber(0);
+    }
 
     // Constructor from name and quanity
     // Set name and quantity to given values
     // Pre: numb >= 0
-    ProductOrder(string name, int inventory){}
+    ProductOrder(string name, int inventory)
+    {
+      setName(name);
+      setNumber(inventory);
+    }
 
     // Big 5: Automatically generated versions
     ~ProductOrder() = default;
@@ -101,6 +109,14 @@ public:
   // setNumber
   // Sets order quantity
   void setNumber(int inventory);
+
+  // empty
+  // Returns true if order quantity = 0, false otherwise
+  bool empty() const;
+
+  // toString
+  // Prints out product name and order quantity
+  void toString();
 
 
 
