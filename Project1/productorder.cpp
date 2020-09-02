@@ -1,11 +1,17 @@
 // productorder.cpp
 // Kelby Hubbard
 // Started: 2020-08-31
-// Updated: 2020-08-31
+// Updated: 2020-09-02
 
 // For CS 311 Fall 2020
 // Source for class ProductOrder
 // Product Order: product name, number of items ordered
+
+// CREDIT:
+// While all code below was written by me (Kelby Hubbard)
+// styling and formatting (code neatness) was based off of
+// Professor Glenn G. Chappell from timeofday.cpp and timeofday.h
+// which can be seen at https://github.com/ggchappell/cs311-2020-03
 
 #include "productorder.h" // For class ProductOrder
 
@@ -60,30 +66,6 @@ string ProductOrder::toString() const
 {
   string final = _name + " (" + std::to_string(_numb) + ")";
   return final;
-}
-
-// ProductOrder::op==
-// (See header for docs.)
-bool ProductOrder::operator==(const ProductOrder &p) const
-{
-  if (getName() == p.getName() && getNumber() == p.getNumber()){
-    return true;
-  }
-  else{
-    return false;
-  }
-}
-
-// ProductOrder::op!=
-// (See header for docs.)
-bool ProductOrder::operator!=(const ProductOrder &p) const
-{
-  if (getName() == p.getName() && getNumber() == p.getNumber()){
-    return false;
-  }
-  else{
-    return true;
-  }
 }
 
 // ProductOrder::op<< (ostream,ProductOrder)

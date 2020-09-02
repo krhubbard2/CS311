@@ -1,18 +1,25 @@
 // productorder.h
 // Kelby Hubbard
 // Started: 2020-08-31
-// Updated: 2020-08-31
+// Updated: 2020-09-02
 
 // For CS 311 Fall 2020
 // Header for class ProductOrder
 // Product Order: product name, number of items ordered
 
+// CREDIT:
+// While all code below was written by me (Kelby Hubbard)
+// styling and formatting (code neatness) was based off of
+// Professor Glenn G. Chappell from timeofday.cpp and timeofday.h
+// which can be seen at https://github.com/ggchappell/cs311-2020-03
+
 #ifndef FILE_PRODUCTORDER_H_INCLUDED
 #define FILE_PRODUCTORDER_H_INCLUDED
 
-#include <string>
+#include <iostream> // For std::cout
+#include <string>   // For std::string
 using std::string;
-#include <ostream> // For std::ostream
+#include <ostream>  // For std::ostream
 
 // *********************************************************************
 // class ProductOrder - Class definition
@@ -41,7 +48,17 @@ public:
     ProductOrder(string name, int inventory)
     {
       setName(name);
-      setNumber(inventory);
+
+      //If invalid quanitity (< 0) is passed, give error and set quantity to 0
+      if (inventory < 0){
+        std::cout << "Error invalid quantity. Setting quantity to '0'.\n";
+        setNumber(0);
+      }
+
+      else{
+        setNumber(inventory);
+      }
+
     }
 
     // Big 5: Automatically generated versions
@@ -73,6 +90,7 @@ public:
 
   // op-- [pre]
   // Reduce order quantity by one
+  // If quantity goes below 0 (breaking invariant) set quantity to 0
   ProductOrder & operator--()
   {
     --_numb;
@@ -85,6 +103,7 @@ public:
 
   // op-- [post]
   // Reduce order quantity by one
+  // If quantity goes below 0 (breaking invariant) set quantity to 0
   ProductOrder operator--(int dummy)
   {
     auto save = *this;
@@ -93,12 +112,18 @@ public:
   }
 
   // op==
-  // If both product name and order quantity are equal return true
-  bool operator==(const ProductOrder &p) const;
+  // If both product name AND order quantity are equal return true
+  bool operator==(const ProductOrder &p) const
+  {
+    return (getName() == p.getName() && getNumber() == p.getNumber());
+  }
 
   // op!=
-  // If product name and order quantity are not equal return true
-  bool operator!=(const ProductOrder &p) const;
+  // If product name OR order quantity are not equal return true
+  bool operator!=(const ProductOrder &p) const
+  {
+    return (getName() != p.getName() || getNumber() != p.getNumber());
+  }
 
 
   // ***** ProductOrder: General public functions *****
@@ -131,8 +156,6 @@ public:
 
 
 
-
-
 // ***** ProductOrder: Data members *****
 private:
 
@@ -147,4 +170,4 @@ private:
 std::ostream & operator<<(std::ostream & out,
                           const ProductOrder & p);
 
-#endif
+#endif // #ifndef FILE_PRODUCTORDER_H_INCLUDED
