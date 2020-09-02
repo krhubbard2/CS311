@@ -59,8 +59,7 @@ bool ProductOrder::empty() const
 // (See header for docs.)
 string ProductOrder::toString() const
 {
-  string final = _name + " (" + std::to_string(_numb) + ")";
-  return final;
+  return (_name + " (" + std::to_string(_numb) + ")");
 }
 
 // ProductOrder::op<< (ostream,ProductOrder)
