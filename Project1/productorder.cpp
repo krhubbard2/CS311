@@ -16,7 +16,7 @@
 
 // ProductOrder::getName
 // (See header for docs.)
-void ProductOrder::getName(string & name) const
+string ProductOrder::getName(string & name) const
 {
   name = _name;
 }
@@ -30,7 +30,7 @@ void ProductOrder::setName(string name)
 
 // ProductOrder::getNumber
 // (See header for docs.)
-void ProductOrder::getNumber(int & inventory) const
+int ProductOrder::getNumber(int & inventory) const
 {
   inventory = _numb;
 }
@@ -41,3 +41,42 @@ void ProductOrder::setNumber(int inventory)
 {
   _numb = inventory;
 }
+
+
+
+
+//DUMMY
+
+string ProductOrder::getName() const
+{
+
+}
+
+int ProductOrder::getNumber() const
+{
+
+}
+
+// ProductOrder::empty
+// (See header for docs.)
+bool ProductOrder::empty() const
+{
+  return true;
+}
+
+// ProdcutOrder::toString
+// (See header for docs.)
+string ProductOrder::toString() const
+{
+}
+
+
+
+
+
+
+
+// ???????????
+std::ostream & operator<<(std::ostream & out,
+                     const ProductOrder & p)
+{}

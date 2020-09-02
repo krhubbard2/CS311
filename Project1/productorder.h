@@ -12,6 +12,7 @@
 
 #include <string>
 using std::string;
+#include <ostream> // For std::ostream
 
 // *********************************************************************
 // class ProductOrder - Class definition
@@ -91,12 +92,20 @@ public:
     return save;
   }
 
+
+  // DUMMY
+  bool operator==(const ProductOrder &p) const{return true;}
+  bool operator!=(const ProductOrder &p) const{return false;}
+
+
   // ***** ProductOrder: General public functions *****
 public:
 
   // getName
   // Return product name
-  void getName(string & name) const;
+  string getName(string & name) const;
+  // DUMMY
+  string getName() const;
 
   // setName
   // Sets name of product
@@ -104,7 +113,9 @@ public:
 
   // getNumber
   // Return order quantity
-  void getNumber(int & inventory) const;
+  int getNumber(int & inventory) const;
+  // DUMMY
+  int getNumber() const;
 
   // setNumber
   // Sets order quantity
@@ -116,7 +127,7 @@ public:
 
   // toString
   // Prints out product name and order quantity
-  void toString();
+  string toString() const;
 
 
 
@@ -131,5 +142,8 @@ private:
 }; // End class ProductOrder
 
 
+//dummy
+std::ostream & operator<<(std::ostream & out,
+                          const ProductOrder & p);
 
 #endif
