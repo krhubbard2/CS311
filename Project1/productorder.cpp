@@ -52,12 +52,7 @@ void ProductOrder::setNumber(int inventory)
 // (See header for docs.)
 bool ProductOrder::empty() const
 {
-  if (_numb == 0){
-    return true;
-  }
-  else{
-    return false;
-  }
+  return (_numb == 0);
 }
 
 // ProductOrder::toString
