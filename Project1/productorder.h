@@ -92,19 +92,20 @@ public:
     return save;
   }
 
+  // op==
+  // If both product name and order quantity are equal return true
+  bool operator==(const ProductOrder &p) const;
 
-  // DUMMY
-  bool operator==(const ProductOrder &p) const{return true;}
-  bool operator!=(const ProductOrder &p) const{return false;}
+  // op!=
+  // If product name and order quantity are not equal return true
+  bool operator!=(const ProductOrder &p) const;
 
 
   // ***** ProductOrder: General public functions *****
 public:
 
   // getName
-  // Return product name
-  string getName(string & name) const;
-  // DUMMY
+  // Return product name as a string
   string getName() const;
 
   // setName
@@ -112,9 +113,7 @@ public:
   void setName(string name);
 
   // getNumber
-  // Return order quantity
-  int getNumber(int & inventory) const;
-  // DUMMY
+  // Return order quantity as an int
   int getNumber() const;
 
   // setNumber
@@ -126,7 +125,8 @@ public:
   bool empty() const;
 
   // toString
-  // Prints out product name and order quantity
+  // Returns product name and order quantity as a string
+  // Format: "Productname (quantity)"
   string toString() const;
 
 
@@ -142,7 +142,8 @@ private:
 }; // End class ProductOrder
 
 
-//dummy
+// ProductOrder::op<< (ostream,ProductOrder)
+// Prints results of ProductOrder::toString() -- See toString() for docs.
 std::ostream & operator<<(std::ostream & out,
                           const ProductOrder & p);
 

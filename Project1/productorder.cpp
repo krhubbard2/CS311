@@ -16,9 +16,9 @@
 
 // ProductOrder::getName
 // (See header for docs.)
-string ProductOrder::getName(string & name) const
+string ProductOrder::getName() const
 {
-  name = _name;
+  return _name;
 }
 
 // ProductOrder::setName
@@ -30,9 +30,9 @@ void ProductOrder::setName(string name)
 
 // ProductOrder::getNumber
 // (See header for docs.)
-int ProductOrder::getNumber(int & inventory) const
+int ProductOrder::getNumber() const
 {
-  inventory = _numb;
+  return _numb;
 }
 
 // ProductOrder::setNumber
@@ -42,41 +42,55 @@ void ProductOrder::setNumber(int inventory)
   _numb = inventory;
 }
 
-
-
-
-//DUMMY
-
-string ProductOrder::getName() const
-{
-
-}
-
-int ProductOrder::getNumber() const
-{
-
-}
-
 // ProductOrder::empty
 // (See header for docs.)
 bool ProductOrder::empty() const
 {
-  return true;
+  if (_numb == 0){
+    return true;
+  }
+  else{
+    return false;
+  }
 }
 
-// ProdcutOrder::toString
+// ProductOrder::toString
 // (See header for docs.)
 string ProductOrder::toString() const
 {
+  string final = _name + " (" + std::to_string(_numb) + ")";
+  return final;
 }
 
+// ProductOrder::op==
+// (See header for docs.)
+bool ProductOrder::operator==(const ProductOrder &p) const
+{
+  if (getName() == p.getName() && getNumber() == p.getNumber()){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
 
+// ProductOrder::op!=
+// (See header for docs.)
+bool ProductOrder::operator!=(const ProductOrder &p) const
+{
+  if (getName() == p.getName() && getNumber() == p.getNumber()){
+    return false;
+  }
+  else{
+    return true;
+  }
+}
 
-
-
-
-
-// ???????????
+// ProductOrder::op<< (ostream,ProductOrder)
+// (See header for docs.)
 std::ostream & operator<<(std::ostream & out,
                      const ProductOrder & p)
-{}
+{
+  out << p.toString();
+  return out;
+}
