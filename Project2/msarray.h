@@ -18,7 +18,6 @@
 #define FILE_MSARRAY_H_INCLUDED
 
 #include <cstddef> // For std::size_t
-#include <iterator> // For iterators
 
 // *********************************************************************
 // class MSArray - Class definition
