@@ -28,7 +28,7 @@
 // class MSArray
 // A "Moderately Smart Array Class"
 // Invariants:
-//
+//             size_type must be >= 0.
 
 template <typename T>
 class MSArray{
@@ -118,7 +118,7 @@ public:
 // ***** MSArray: General public operators *****
 public:
 
-  // op[]
+  // op[] (const and non-const)
   // Pre:
   //     0 <= index < (size of array)
   value_type & operator[](size_type index)
@@ -139,7 +139,7 @@ public:
     return _size;
   }
 
-  // MSArray::begin
+  // MSArray::begin (const and non-const)
   // Returns the address of item 0
   value_type * begin()
   {
@@ -150,7 +150,7 @@ public:
     return _arrayptr;
   }
 
-  // MSArray::end
+  // MSArray::end (const and non-const)
   // Returns the address of the item one-past the end of the array
   value_type * end()
   {
@@ -260,4 +260,4 @@ bool operator>=(const MSArray<T> & left, const MSArray<T> & right)
   return !(left < right);
 }
 
-#endif //#ifnded FILE_MSARRAY_H_INCLUDED
+#endif //#ifndef FILE_MSARRAY_H_INCLUDED
