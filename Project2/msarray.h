@@ -12,6 +12,7 @@
 #define FILE_MSARRAY_H_INCLUDED
 
 #include <cstddef> // For std::size_t
+#include <iterator> // For iterators
 
 // *********************************************************************
 // class MSArray - Class definition
@@ -36,7 +37,7 @@ public:
   // Default Constructor
   // Creates an array of size 8
   MSArray()
-    :_arrayptr(new value_type[8])
+    :_arrayptr(new value_type[8]), _size(8)
   {}
 
   // 1 Parameter Constructor
@@ -44,7 +45,7 @@ public:
   // Pre:
   //     size >= 0
   MSArray(size_type size)
-    :_arrayptr(new value_type[size])
+    :_arrayptr(new value_type[size]), _size(size)
   {}
 
   // 2 Parameter Constructor
@@ -53,18 +54,53 @@ public:
   // each item in array will be set to this value
   // Pre:
   //      size >= 0
-  MSArray(size_type size, const value_type& item)
+  MSArray(size_type size, const value_type& value)
+    :_arrayptr(new value_type[size]), _size(size)
   {
-    _arrayptr = new value_type[size];
-
     for (std::size_t i=0; i < size; ++i)
-        _arrayptr[i] = item;
+        _arrayptr[i] = value;
   }
 
   // Destructor
   ~MSArray()
   {
     delete [] _arrayptr;
+  }
+
+  // Move Constructor
+  // Pre:
+  //      A valid MSArray object
+  MSArray(MSArray && oldMSArray) noexcept
+    : _arrayptr(oldMSArray._arrayptr), _size(oldMSArray.size())
+  {
+    oldMSArray._arrayptr = nullptr;
+    oldMSArray._size = 0;
+  }
+
+  // Copy Constructor
+  // Pre:
+  //      A valid MSArray object
+  MSArray(const MSArray & original)
+    : _arrayptr(new value_type[original.size()]), _size(original.size())
+  {
+    for (std::size_t i=0; i < size; ++i)
+        _arrayptr[i] = original[i];
+  }
+
+  // Move Assignment Op
+  // Pre:
+  //      A valid MSArray object
+  MSArray & operator=(MSArray && original) noexcept
+  {
+    //NEED TO DO
+  }
+
+  // Copy Assignment Op
+  // Pre:
+  //      A valid MSArray object
+  MSArray & operator=(const MSArray & original)
+  {
+    //NEED TO DO
   }
 
 // ***** MSArray: General public operators *****
@@ -82,83 +118,35 @@ public:
     return _arrayptr[index];
   }
 
-  // op==
-  //
-  bool operator==(const MSArray & p) const
-  {
-    return true;
-  }
-
-  // op!=
-  //
-  bool operator!=(const MSArray & p) const
-  {
-    return true;
-  }
-
-  // op<
-  //
-  bool operator<(const MSArray & p) const
-  {
-    return true;
-  }
-
-  // op<=
-  //
-  bool operator<=(const MSArray & p) const
-  {
-    return true;
-  }
-
-  // op>
-  //
-  bool operator>(const MSArray & p) const
-  {
-    return true;
-  }
-
-  // op>=
-  //
-  bool operator>=(const MSArray & p) const
-  {
-    return true;
-  }
-
 
 // ***** MSArray: General public functions *****
   // MSArray::size
   // Returns number of items in array
-  value_type size()
+  std::size_t size() const
   {
-    value_type arrSize = *(&_arrayptr + 1) - _arrayptr;
-    return arrSize;
-  }
-  value_type size() const
-  {
-    value_type arrSize = *(&_arrayptr + 1) - _arrayptr;
-    return arrSize;
+    return _size;
   }
 
   // MSArray::begin
   // Returns the address of item 0
-  value_type begin()
+  value_type * begin()
   {
-    return _arrayptr[0];
+    return _arrayptr;
   }
-  value_type begin() const
+  const value_type * begin() const
   {
-    return _arrayptr[0];
+    return _arrayptr;
   }
 
   // MSArray::end
   // Returns the address of the item one-past the end of the array
-  value_type end()
+  value_type * end()
   {
-    return _arrayptr[+1];
+    return _arrayptr + _size;
   }
-  value_type end() const
+  const value_type * end() const
   {
-    return _arrayptr[+1];
+    return _arrayptr + _size;
   }
 
 
@@ -166,8 +154,25 @@ public:
 private:
 
   value_type * _arrayptr;  // Pointer to array
+  size_type _size;         // size
 
 }; // End class MSArray
 
+
+// *********************************************************************
+// Global Operators
+// *********************************************************************
+
+// Equality Op==
+
+// Inequality op!=
+
+// Less than op<
+
+// Less than or equal to op<=
+
+// Greater than op>
+
+// Greater than or equal to op>=
 
 #endif //#ifnded FILE_MSARRAY_H_INCLUDED

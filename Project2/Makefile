@@ -1,4 +1,4 @@
-TARGET = Project1
+TARGET = Project2
 SOURCES = $(wildcard *.cpp)
 HEADERS = $(wildcard *.h*)
 OBJECTS = $(SOURCES:%.cpp=%.o)
