@@ -1,12 +1,15 @@
 // msarray.h
 // Kelby Hubbard
 // Started: 2020-09-08
-// Updated: 2020-09-09
+// Updated: 2020-09-15
 
 // For CS 311 Fall 2020
 // Header for class MSArray
 // Class template that manages and allows access to a fixed-size array
 // There is no associated source file.
+
+// CREDIT:
+//
 
 #ifndef FILE_MSARRAY_H_INCLUDED
 #define FILE_MSARRAY_H_INCLUDED
@@ -83,7 +86,7 @@ public:
   MSArray(const MSArray & original)
     : _arrayptr(new value_type[original.size()]), _size(original.size())
   {
-    for (std::size_t i=0; i < size; ++i)
+    for (std::size_t i=0; i < _size; ++i)
         _arrayptr[i] = original[i];
   }
 
@@ -92,7 +95,9 @@ public:
   //      A valid MSArray object
   MSArray & operator=(MSArray && original) noexcept
   {
-    //NEED TO DO
+    std::swap(_size, original._size);
+    std::swap(_arrayptr, original._arrayptr);
+    return *this;
   }
 
   // Copy Assignment Op
@@ -100,7 +105,10 @@ public:
   //      A valid MSArray object
   MSArray & operator=(const MSArray & original)
   {
-    //NEED TO DO
+    MSArray old(original);
+    std::swap(_size, old._size);
+    std::swap(_arrayptr, old._arrayptr);
+    return *this;
   }
 
 // ***** MSArray: General public operators *****
@@ -164,15 +172,60 @@ private:
 // *********************************************************************
 
 // Equality Op==
+// Returns true if two MSArray objects have same size and all items are equal
+// Pre:
+//      Both MSArray objects must be the same type
+template <typename T>
+bool operator==(const MSArray<T> & left, const MSArray<T> & right)
+{
+  if (left.size() != right.size())
+  {
+    return false;
+  }
+  for (size_t i=0; i<left.size(); ++i)
+  {
+    if (left[i] != right[i])
+      {
+        return false;
+      }
+  }
+  return true;
+}
 
 // Inequality op!=
+// Returns true if two MSArray objects are different sizes
+// or have a different element
+// Pre:
+//      Both MSArray objects must be the same type
+template <typename T>
+bool operator!=(const MSArray<T> & left, const MSArray<T> & right)
+{
+  return !(left==right);
+}
 
 // Less than op<
+template <typename T>
+bool operator<(const MSArray<T> & left, const MSArray<T> & right)
+{
+
+}
 
 // Less than or equal to op<=
+template <typename T>
+bool operator<=(const MSArray<T> & left, const MSArray<T> & right)
+{
+}
 
 // Greater than op>
+template <typename T>
+bool operator>(const MSArray<T> & left, const MSArray<T> & right)
+{
+}
 
 // Greater than or equal to op>=
+template <typename T>
+bool operator>=(const MSArray<T> & left, const MSArray<T> & right)
+{
+}
 
 #endif //#ifnded FILE_MSARRAY_H_INCLUDED
