@@ -17,7 +17,9 @@
 #ifndef FILE_MSARRAY_H_INCLUDED
 #define FILE_MSARRAY_H_INCLUDED
 
-#include <cstddef> // For std::size_t
+#include <cstddef>   // For std::size_t
+#include <iterator>  // For std::swap
+#include <algorithm> // For std::lexicographical_compare
 
 // *********************************************************************
 // class MSArray - Class definition
@@ -206,28 +208,56 @@ bool operator!=(const MSArray<T> & left, const MSArray<T> & right)
 }
 
 // Less than op<
+// Takes two MSArray objects of the same type and compares the first element.
+// If the first MSArray element is lower than the first element of the second
+// MSArray then it returns true. If the elements are the same it looks at the
+// next element and compares again.
+// Pre:
+//      Both MSArray objects must be the same type
 template <typename T>
 bool operator<(const MSArray<T> & left, const MSArray<T> & right)
 {
-
+  return std::lexicographical_compare(left.begin(), left.end(),
+                                     right.begin(), right.end());
 }
 
 // Less than or equal to op<=
+// Takes two MSArray objects of the same type and compares the first element.
+// If the first MSArray element is lower than or equal to the first element of
+// the second MSArray then it returns true. If the elements
+// are the same it looks at the next element and compares again.
+// Pre:
+//      Both MSArray objects must be the same type
 template <typename T>
 bool operator<=(const MSArray<T> & left, const MSArray<T> & right)
 {
+  return !(right < left);
 }
 
 // Greater than op>
+// Takes two MSArray objects of the same type and compares the first element.
+// If the first MSArray element is greater than the first element of the second
+// MSArray then it returns true. If the elements are the same it looks at the
+// next element and compares again.
+// Pre:
+//      Both MSArray objects must be the same type
 template <typename T>
 bool operator>(const MSArray<T> & left, const MSArray<T> & right)
 {
+  return right < left;
 }
 
 // Greater than or equal to op>=
+// Takes two MSArray objects of the same type and compares the first element.
+// If the first MSArray element is greater than or equal to the first element
+// of the second MSArray then it returns true. If the elements are the
+// same it looks at the next element and compares again.
+// Pre:
+//      Both MSArray objects must be the same type
 template <typename T>
 bool operator>=(const MSArray<T> & left, const MSArray<T> & right)
 {
+  return !(left < right);
 }
 
 #endif //#ifnded FILE_MSARRAY_H_INCLUDED
