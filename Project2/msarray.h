@@ -9,7 +9,10 @@
 // There is no associated source file.
 
 // CREDIT:
-//
+// All code below is written by me (Kelby Hubbard)
+// This code was built off of code written and styled by
+// Glenn G. Chappell from intarray.h which can be
+// seen at https://github.com/ggchappell/cs311-2020-03
 
 #ifndef FILE_MSARRAY_H_INCLUDED
 #define FILE_MSARRAY_H_INCLUDED
