@@ -19,7 +19,7 @@
 
 #include <cstddef>   // For std::size_t
 #include <iterator>  // For std::swap
-#include <algorithm> // For std::lexicographical_compare
+#include <algorithm> // For std::lexicographical_compare and std::equal
 
 // *********************************************************************
 // class MSArray - Class definition
@@ -182,18 +182,7 @@ private:
 template <typename T>
 bool operator==(const MSArray<T> & left, const MSArray<T> & right)
 {
-  if (left.size() != right.size())
-  {
-    return false;
-  }
-  for (size_t i=0; i<left.size(); ++i)
-  {
-    if (left[i] != right[i])
-      {
-        return false;
-      }
-  }
-  return true;
+  return std::equal(left.begin(), left.end(), right.begin(), right.end());
 }
 
 // Inequality op!=
