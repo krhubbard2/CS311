@@ -1,7 +1,7 @@
 // msarray.h
 // Kelby Hubbard
 // Started: 2020-09-08
-// Updated: 2020-09-15
+// Updated: 2020-09-16
 
 // For CS 311 Fall 2020
 // Header for class MSArray
