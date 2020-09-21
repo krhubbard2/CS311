@@ -1,7 +1,8 @@
-// dp3.h  SKELETON
-// Glenn G. Chappell
-// 2020-09-17
-//
+// dp3.h
+// Kelby Hubbard
+// Started: 2020-09-18
+// Updated: 2020-09-21
+
 // For CS 311 Fall 2020
 // Header for Project 3 functions
 
@@ -11,14 +12,27 @@
 #include "llnode.h"    // For LLNode
 #include <cstddef>     // For std::size_t
 #include <functional>  // For std::function
+#include <stdexcept>   // For std::out_of_range
 
 
 template <typename ValueType>
 ValueType lookup(const LLNode<ValueType> * head,
                  std::size_t index)
 {
-    return ValueType();  // Dummy return
-    // TODO: Write this!!!
+  while(true)
+  {
+    if(head == nullptr)
+    {
+      throw std::out_of_range("Inproper entry. "
+                              "Index cannot be negative or bigger than size.");
+    }
+    else if (index == 0)
+    {
+      return head->_data;
+    }
+    head = head->_next;
+    --index;
+  }
 }
 
 
@@ -42,4 +56,3 @@ int gcd(int a,
 
 
 #endif  //#ifndef FILE_DP3_H_INCLUDED
-
