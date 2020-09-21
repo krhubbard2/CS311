@@ -32,6 +32,12 @@ void didItThrow(const function<void()> & ff,
 int gcd(int a,
         int b)
 {
-    return 42;  // Dummy return
-    // TODO: Write this!!!
+  if (a == 0) return b;
+  else if (a > b)
+  {
+    gcd(b, a);
+  }
+  else{
+    gcd(b % a, a);
+  }
 }
