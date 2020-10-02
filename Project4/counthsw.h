@@ -49,10 +49,10 @@ int countHSW(const int &dim_x, const int &dim_y,
 // Pre -
 // 	All countHSW preconditions must be met             
 int countHSW_recurse(BoardType &board, 
-										 const int &dim_x, const int &dim_y, 
-										 const int &finish_x, const int &finish_y, 
-										 int &curr_x, int &curr_y, 
-										 int &squaresLeft);
+		     const int &dim_x, const int &dim_y, 
+		     const int &finish_x, const int &finish_y, 
+		     int &curr_x, int &curr_y, 
+		     int &squaresLeft);
 
 
 #endif // #ifndef FILE_COUNTHSW_H_INCLUDED

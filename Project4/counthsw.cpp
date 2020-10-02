@@ -29,84 +29,83 @@ int countHSW(const int &dim_x, const int &dim_y,
              const int &start_x, const int &start_y,
              const int &finish_x, const int &finish_y)
 {
-	// Create board of correct size -- all values set to 0
-	BoardType board(dim_x, vector<int>(dim_y, 0));
+  // Create board of correct size -- all values set to 0
+  BoardType board(dim_x, vector<int>(dim_y, 0));
 	
-	int squaresLeft = dim_x * dim_y;
+  int squaresLeft = dim_x * dim_y;
 	
-	// set hole to 1
-	board[hole_x][hole_y] = 1;
-	--squaresLeft;
+  // set hole to 1
+  board[hole_x][hole_y] = 1;
+  --squaresLeft;
 	
-	// set start to 1
-	board[start_x][start_y] = 1;
-	--squaresLeft;
+  // set start to 1
+  board[start_x][start_y] = 1;
+  --squaresLeft;
 	
-	int curr_x = start_x;
-	int curr_y = start_y;
+  int curr_x = start_x;
+  int curr_y = start_y;
 	
   return countHSW_recurse(board, dim_x,dim_y, finish_x,finish_y, curr_x,curr_y, squaresLeft);
 }
 
 int countHSW_recurse(BoardType &board, 
-										 const int &dim_x, const int &dim_y, 
-										 const int &finish_x, const int &finish_y, 
-										 int &curr_x, int &curr_y, 
-										 int &squaresLeft)
+		     const int &dim_x, const int &dim_y, 
+		     const int &finish_x, const int &finish_y, 
+		     int &curr_x, int &curr_y, 
+		     int &squaresLeft)
 {
-	// BASE CASE
-	if (squaresLeft == 0 && curr_x == finish_x && curr_y == finish_y)
-	{
-		return 1;	// We have a full solution
-	}
+  // BASE CASE
+  if (squaresLeft == 0 && curr_x == finish_x && curr_y == finish_y)
+  {
+    return 1;	// We have a full solution
+  }
 	
-	// RECURSIVE CASE
-	int total = 0;	//Running total of full solutions
-	
-	//	Check surrounding squares (x dimensions)
-	for (int i = -1; i < 2; ++i)
-	{
-	// Check surrounding squares (y dimensions)
-		for (int j = -1; j < 2; ++j)
-		{
-			// Current space -- skip
-			if (i == 0 && j == 0)
-			{
-				continue;
-			} 
+  // RECURSIVE CASE
+  int total = 0;  //Running total of full solutions
 
-			// Space not on board -- skip
-			// This includes negative dimensions and dimensions past the highest x and y dimension
-			if (curr_x + i < 0 || curr_x + i > (dim_x - 1) || curr_y + j < 0 || curr_y + j > (dim_y - 1))
-			{
-				continue;
-			}			
+  // Check surrounding squares (x dimensions)
+  for (int i = -1; i < 2; ++i)
+  {
+    // Check surrounding squares (y dimensions)
+    for (int j = -1; j < 2; ++j)
+    {
+      // Current space -- skip
+      if (i == 0 && j == 0)
+      {
+	continue;
+      } 
+      // Space not on board -- skip
+      // This includes negative dimensions and dimensions past the highest x and y dimension
+      if (curr_x + i < 0 || curr_x + i > (dim_x - 1) || curr_y + j < 0 || curr_y + j > (dim_y - 1))
+      {
+        continue;
+      }			
+		
+      // If the square lies on the board and has not yet been visited.	
+      if (board[curr_x + i][curr_y + j] == 0)
+      {
+        // Move current spider position
+        curr_x += i;
+        curr_y += j;
+	
+        // Mark new square as visited
+        board[curr_x][curr_y] = 1;
+		
+        // Decrement number of squares left
+        --squaresLeft;
 			
-			// If the square lies on the board and has not yet been visited.	
-			if (board[curr_x + i][curr_y + j] == 0)
-			{
-				// Move current spider position
-				curr_x += i;
-				curr_y += j;
-				
-				// Mark new square as visited
-				board[curr_x][curr_y] = 1;
-				
-				// Decrement number of squares left
-				--squaresLeft;
-				
-				// Recrusive call & Add return value to total
-				total += countHSW_recurse(board, dim_x,dim_y, finish_x,finish_y, curr_x,curr_y, squaresLeft);
-				
-				// Restore all changes, except change to total
-				board[curr_x][curr_y] = 0;
-				curr_x -= i;
-				curr_y -= j;
-				++squaresLeft;
-				
-			}
-		}
-	}
+        // Recrusive call & Add return value to total
+        total += countHSW_recurse(board, dim_x,dim_y, finish_x,finish_y, curr_x,curr_y, squaresLeft);
+			
+        // Restore all changes, except change to total
+        board[curr_x][curr_y] = 0;
+        curr_x -= i;
+        curr_y -= j;
+        ++squaresLeft;
+		
+      }
+    }  
+  }
   // Return all the ones we've added up so far
   return total;
 }
