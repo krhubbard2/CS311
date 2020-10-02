@@ -70,7 +70,7 @@ int countHSW_recurse(BoardType &board,
 			} 
 
 			// Space not on board -- skip
-			if (curr_x + i < 0 || curr_x + i > dim_x || curr_y + j < 0 || curr_y + j > dim_y)
+			if (curr_x + i < 0 || curr_x + i > (dim_x - 1) || curr_y + j < 0 || curr_y + j > (dim_y - 1))
 			{
 				continue;
 			}			
@@ -78,8 +78,8 @@ int countHSW_recurse(BoardType &board,
 			if (board[curr_x + i][curr_y + j] == 0)
 			{
 				// Move current spider position
-				curr_x = curr_x + i;
-				curr_y = curr_y + j;
+				curr_x += i;
+				curr_y += j;
 				
 				// Mark new square as visited
 				board[curr_x][curr_y] = 1;
@@ -89,11 +89,16 @@ int countHSW_recurse(BoardType &board,
 				
 				// Recrusive call & Add return value to total
 				total += countHSW_recurse(board, dim_x,dim_y, finish_x,finish_y, curr_x,curr_y, squaresLeft);
+				
+				// Restore all changes, except change to total
+				board[curr_x][curr_y] = 0;
+				curr_x -= i;
+				curr_y -= j;
+				++squaresLeft;
+				
 			}
 		}
 	}
-	// Restore all changes except change to total
-	board[curr_x][curr_y] = 0;	
 	
   // Return all the ones we've added up so far
   return total;
@@ -101,13 +106,3 @@ int countHSW_recurse(BoardType &board,
 
 
 
-
-
-// test main
-int main(){
-
-	std::cout << "Total holey spider walks: " << countHSW(4,2, 1,0, 0,0, 3,1) << std::endl;
-
-
-	return 0;
-}
