@@ -32,6 +32,15 @@ int countHSW(int dim_x, int dim_y,
              int hole_x, int hole_y,
              int start_x, int start_y,
              int finish_x, int finish_y);
+             
+// Does most of the computational work for countHSW. Implements recursive backtracking. 
+// Pre -
+// 	All countHSW preconditions must be met             
+int countHSW_recurse(vector<vector<int>> board, 
+										 int dim_x, int dim_y, 
+										 int finish_x, int finish_y, 
+										 int curr_x, int curr_y, 
+										 int squaresLeft);
 
 
 #endif // #ifndef FILE_COUNTHSW_H_INCLUDED

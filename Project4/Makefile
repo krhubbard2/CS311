@@ -1,4 +1,4 @@
-TARGET = Main
+TARGET = main
 SOURCES = $(wildcard *.cpp)
 HEADERS = $(wildcard *.h*)
 OBJECTS = $(SOURCES:%.cpp=%.o)

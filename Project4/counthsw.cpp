@@ -15,3 +15,28 @@
 // A way of doing this that does not step on the hole, and steps on each other square exactly once, 
 // is a holey spider walk." (Glenn G. Chappell)
 
+#include "counthsw.h"
+#include "vector"
+
+
+
+int countHSW(int dim_x, int dim_y,
+             int hole_x, int hole_y,
+             int start_x, int start_y,
+             int finish_x, int finish_y)
+{
+	vector<vector<int>> board(dim_x, vector<int>(dim_y, 0));
+  return 1;
+}
+
+int countHSW_recurse(vector<vector<int>> board, 
+										 int dim_x, int dim_y, 
+										 int finish_x, int finish_y, 
+										 int curr_x, int curr_y, 
+										 int squaresLeft)
+{
+	if (squaresLeft == 0 && curr_x == finish_x && curr_y == finish_y)
+	{
+		return 1;	// We have a full solution
+	}
+}
