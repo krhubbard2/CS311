@@ -18,6 +18,12 @@
 #ifndef FILE_COUNTHSW_H_INCLUDED
 #define FILE_COUNTHSW_H_INCLUDED
 
+#include <vector> // for std::vector
+using std::vector;
+#include <iostream>
+
+using BoardType = vector<vector<int>>;
+
 // Counts and returns the amount of holey spider walks on a given board
 // Pre -
 //	0 <= hole_x < dim_x
@@ -28,19 +34,19 @@
 //	0 <= finish_y < dim_y
 //	(hole_x, hole_y) != (start_x, start_y)
 //	(hole_x, hole_y) != (finish_x, finish_y)
-int countHSW(int dim_x, int dim_y,
-             int hole_x, int hole_y,
-             int start_x, int start_y,
-             int finish_x, int finish_y);
+int countHSW(const int &dim_x, const int &dim_y,
+             const int &hole_x, const int &hole_y,
+             const int &start_x, const int &start_y,
+             const int &finish_x, const int &finish_y);
              
 // Does most of the computational work for countHSW. Implements recursive backtracking. 
 // Pre -
 // 	All countHSW preconditions must be met             
-int countHSW_recurse(vector<vector<int>> board, 
-										 int dim_x, int dim_y, 
-										 int finish_x, int finish_y, 
-										 int curr_x, int curr_y, 
-										 int squaresLeft);
+int countHSW_recurse(BoardType &board, 
+										 const int &dim_x, const int &dim_y, 
+										 const int &finish_x, const int &finish_y, 
+										 int &curr_x, int &curr_y, 
+										 int &squaresLeft);
 
 
 #endif // #ifndef FILE_COUNTHSW_H_INCLUDED
