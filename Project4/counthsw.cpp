@@ -1,7 +1,7 @@
 // counthsw.cpp
 // Kelby Hubbard
 // Started: 2020-09-28
-// Updated: 2020-09-28
+// Updated: 2020-10-02
 
 // For CS 311 Fall 2020
 // Source file for Project 4
@@ -15,9 +15,15 @@
 // A way of doing this that does not step on the hole, and steps on each other square exactly once, 
 // is a holey spider walk." (Glenn G. Chappell)
 
+// CREDIT:
+// All code below is written by me (Kelby Hubbard)
+// This code was built off of the code written and styled by
+// Glenn G. Chappell from nqueencount.cpp which can be
+// seen at https://github.com/ggchappell/cs311-2020-03
+
 #include "counthsw.h"
 
-
+// countHSW -- See header for documentation
 int countHSW(const int &dim_x, const int &dim_y,
              const int &hole_x, const int &hole_y,
              const int &start_x, const int &start_y,
@@ -57,10 +63,10 @@ int countHSW_recurse(BoardType &board,
 	// RECURSIVE CASE
 	int total = 0;	//Running total of full solutions
 	
-	//	Check surrounding squares
+	//	Check surrounding squares (x dimensions)
 	for (int i = -1; i < 2; ++i)
 	{
-	// Check surrounding squares
+	// Check surrounding squares (y dimensions)
 		for (int j = -1; j < 2; ++j)
 		{
 			// Current space -- skip
@@ -70,11 +76,13 @@ int countHSW_recurse(BoardType &board,
 			} 
 
 			// Space not on board -- skip
+			// This includes negative dimensions and dimensions past the highest x and y dimension
 			if (curr_x + i < 0 || curr_x + i > (dim_x - 1) || curr_y + j < 0 || curr_y + j > (dim_y - 1))
 			{
 				continue;
 			}			
-					
+			
+			// If the square lies on the board and has not yet been visited.	
 			if (board[curr_x + i][curr_y + j] == 0)
 			{
 				// Move current spider position
@@ -99,7 +107,6 @@ int countHSW_recurse(BoardType &board,
 			}
 		}
 	}
-	
   // Return all the ones we've added up so far
   return total;
 }

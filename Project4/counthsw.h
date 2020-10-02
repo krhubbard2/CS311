@@ -1,7 +1,7 @@
 // counthsw.h
 // Kelby Hubbard
 // Started: 2020-09-28
-// Updated: 2020-09-28
+// Updated: 2020-10-02
 
 // For CS 311 Fall 2020
 // Header for Project 4
@@ -15,14 +15,20 @@
 // A way of doing this that does not step on the hole, and steps on each other square exactly once, 
 // is a holey spider walk." (Glenn G. Chappell)
 
+// CREDIT:
+// All code below is written by me (Kelby Hubbard)
+// This code was built off of the code written and styled by
+// Glenn G. Chappell from nqueencount.cpp which can be
+// seen at https://github.com/ggchappell/cs311-2020-03
+
+
 #ifndef FILE_COUNTHSW_H_INCLUDED
 #define FILE_COUNTHSW_H_INCLUDED
 
 #include <vector> // for std::vector
 using std::vector;
-#include <iostream>
 
-using BoardType = vector<vector<int>>;
+using BoardType = vector<vector<int>>; // Holds board layout. To lookup item i,j: board[i][j]
 
 // Counts and returns the amount of holey spider walks on a given board
 // Pre -
