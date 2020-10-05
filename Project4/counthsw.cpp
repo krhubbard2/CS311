@@ -1,7 +1,7 @@
 // counthsw.cpp
 // Kelby Hubbard
 // Started: 2020-09-28
-// Updated: 2020-10-02
+// Updated: 2020-10-05
 
 // For CS 311 Fall 2020
 // Source file for Project 4
@@ -48,6 +48,7 @@ int countHSW(const int &dim_x, const int &dim_y,
   return countHSW_recurse(board, dim_x,dim_y, finish_x,finish_y, curr_x,curr_y, squaresLeft);
 }
 
+// countHSW_recurse -- See header for documentation
 int countHSW_recurse(BoardType &board, 
 		     const int &dim_x, const int &dim_y, 
 		     const int &finish_x, const int &finish_y, 
@@ -106,7 +107,6 @@ int countHSW_recurse(BoardType &board,
       }
     }  
   }
-  // Return all the ones we've added up so far
   return total;
 }
 
