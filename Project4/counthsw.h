@@ -1,7 +1,7 @@
 // counthsw.h
 // Kelby Hubbard
 // Started: 2020-09-28
-// Updated: 2020-10-02
+// Updated: 2020-10-05
 
 // For CS 311 Fall 2020
 // Header for Project 4
