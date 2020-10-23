@@ -185,11 +185,32 @@ public:
   // Strong Guarantee
   void resize(size_type newsize)
   {
-    // TODO: WRITE THIS
+    if (newsize <= _capacity)
+    {
+      _size = newsize;
+    }
+    else
+    {
+      size_type newCapacity = std::max(2*_capacity, newsize);
+      value_type * temp = new value_type[newCapacity];
+      try
+      {
+        std::copy(begin(), end(), temp);
+      }
+      catch(...)
+      {
+        delete[] temp;
+        throw;
+      }
+      delete[] _data;
+      _data = temp;
+      _capacity = newCapacity;
+      _size = newsize;
+    }
   }
 
   // insert
-  // Basuc Guarantee
+  // Basic Guarantee
   // Pre:
   //	Position is within TFSArray size
   iterator insert(iterator pos,
@@ -204,7 +225,9 @@ public:
   // 	Position is within TFSArray size
   iterator erase(iterator pos)
   {
-    return begin(); // DUMMY
+    std::rotate(pos, pos+1, end());
+    resize(_size - 1);
+    return pos;
   }
 
   // push_back
