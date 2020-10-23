@@ -88,6 +88,8 @@ public:
   
   // Move constructor
   // No-Throw Guarantee
+  // Pre:
+  //	A valid TFSArray object to move
   TFSArray(TFSArray && other) noexcept: _size(other.size()), _data(other._data)
   {
     other._size = 0;
@@ -131,7 +133,7 @@ public:
 
   // operator[] - non-const & const
   // Pre:
-  //	 
+  //	 0 >= index <= _size
   // No-Throw Guarantee
   value_type & operator[](size_type index) noexcept
   {
@@ -183,6 +185,8 @@ public:
 
   // resize
   // Strong Guarantee
+  // Pre:
+  //	newsize >= 0
   void resize(size_type newsize)
   {
     if (newsize <= _capacity)
@@ -213,6 +217,7 @@ public:
   // Basic Guarantee
   // Pre:
   //	Position is within TFSArray size
+  //	Item is of correct value_type
   iterator insert(iterator pos,
                   const value_type & item)
   {
@@ -233,6 +238,8 @@ public:
 
   // push_back
   // Strong Guarantee
+  // Pre:
+  //	Item is of correct value_type
   void push_back(const value_type & item)
   {
     insert(end(), item);
