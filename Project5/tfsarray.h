@@ -88,15 +88,36 @@ public:
   
   // Move constructor
   // No-Throw Guarantee
-  TFSArray(TFSArray && other);
+  TFSArray(TFSArray && other) noexcept: _size(other.size()), _data(other._data)
+  {
+    other._size = 0;
+    other._data = nullptr;
+  }
 
   // Copy assignment
-  // 
-  TFSArray & operator=(const TFSArray & other);
+  // Strong Guarantee
+  // Pre:
+  //	A valid TFSArray object to copy
+  TFSArray & operator=(const TFSArray & other)
+  {
+    TFSArray old(other);
+    swap(old);
+    return *this;
+  }
   
   // Move assignment
   // No-Throw Guarantee
-  TFSArray & operator=(TFSArray && other) noexcept;
+  // Pre:
+  //	A valid TFSArray object to move
+  TFSArray & operator=(TFSArray && other) noexcept
+  {
+    if (this == &other)
+    {
+      return *this;
+    }
+    swap(other);
+    return *this;
+  }
 
   // Deconstructor
   // No-Throw Guarantee
@@ -161,27 +182,40 @@ public:
   }
 
   // resize
-  // ??? Guarantee
-  void resize(size_type newsize);
+  // Strong Guarantee
+  void resize(size_type newsize)
+  {
+    // TODO: WRITE THIS
+  }
 
   // insert
-  // ??? Guarantee
+  // Basuc Guarantee
+  // Pre:
+  //	Position is within TFSArray size
   iterator insert(iterator pos,
-                  const value_type & item);
+                  const value_type & item)
+  {
+    return begin(); //DUMMY
+  }
 
   // erase
-  // ??? Guarantee
-  iterator erase(iterator pos);
+  // Strong Guarantee
+  // Pre:
+  // 	Position is within TFSArray size
+  iterator erase(iterator pos)
+  {
+    return begin(); // DUMMY
+  }
 
   // push_back
-  // ??? Guarantee
+  // Strong Guarantee
   void push_back(const value_type & item)
   {
     insert(end(), item);
   }
 
   // pop_back
-  // ??? Guarantee
+  // Strong Guarantee
   void pop_back()
   {
     erase(end()-1);
@@ -189,7 +223,12 @@ public:
 
   // swap
   // No-Throw Guarantee
-  void swap(TFSArray & other) noexcept;  
+  void swap(TFSArray & other) noexcept
+  {
+    std::swap(_capacity, other._capacity);
+    std::swap(_size, other._size);
+    std::swap(_data, other._data);
+  }
   
 // ***** TFSArray: Data Members *****
 private:
