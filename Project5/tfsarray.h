@@ -1,7 +1,7 @@
 // tfsarray.h
 // Kelby Hubbard
 // Started: 2020-10-22
-// Updated: 2020-10-23
+// Updated: 2020-10-26
 
 // For CS 311 Fall 2020
 // Header for class TFSArray
@@ -17,7 +17,7 @@
 #ifndef FILE_TFSARRAY_H_INCLUDED
 #define FILE_TFSARRAY_H_INCLUDED
 
-#include <cstddef>	// For std::size_t
+#include <cstddef>		// For std::size_t
 #include <algorithm>	// For std::max
 
 // *********************************************************************
@@ -28,10 +28,10 @@
 // Templated Frightfully Smart Array.
 // Resizable, copyable/movable, exception-safe.
 // Invariants:
-//	0 <= _size <= _capacity
-//	_data points to an array of value_type, allocated with new [],
-//	owned by *this, holding _capacity value_type values -- UNLESS
-//	_capacity == 0, in which case _data may be nullptr.
+//		0 <= _size <= _capacity
+//		_data points to an array of value_type, allocated with new [],
+//		owned by *this, holding _capacity value_type values -- UNLESS
+//		_capacity == 0, in which case _data may be nullptr.
 template <typename T>
 class TFSArray{
 
@@ -71,9 +71,9 @@ public:
   // Pre:
   //	  A valid TFSArray object to copy
   TFSArray(const TFSArray & other):
-  	_size(other.size()),
-  	_data(new value_type[other._capacity]),
-  	_capacity(other._capacity)
+  			_size(other.size()),
+  			_data(new value_type[other._capacity]),
+  			_capacity(other._capacity)
   {
     try
     {
@@ -207,9 +207,10 @@ public:
         throw;
       }
       delete[] _data;
-      _data = temp;
-      _capacity = newCapacity;
-      _size = newsize;
+
+      std::swap(_capacity, newCapacity);
+   	  std::swap(_size, newsize);
+   	  std::swap(_data, temp);
     }
   }
 
@@ -221,8 +222,22 @@ public:
   iterator insert(iterator pos,
                   const value_type & item)
   {
+  	size_type index = pos - begin();
+  	resize(_size + 1);
+  	iterator it1 = begin() + index;
+  	_data[_size - 1] = item;
+
+  	try
+  	{
+  		std::rotate(it1, begin() + _size - 1, end());
+  	}
+  	catch (...)
+  	{
+  		resize(_size - 1);
+  		throw;
+  	}
     
-    return begin(); //DUMMY
+    return it1;
   }
 
   // erase
@@ -254,6 +269,8 @@ public:
 
   // swap
   // No-Throw Guarantee
+  // Pre:
+  //	A TFSArray of the same value type
   void swap(TFSArray & other) noexcept
   {
     std::swap(_capacity, other._capacity);
