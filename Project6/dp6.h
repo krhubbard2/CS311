@@ -36,7 +36,7 @@ void reverseList(std::unique_ptr<LLNode2<ValType>> & head)
 		newHead = head;
 		head = currentHead;
 	}
-	
+
 	head = newHead;
 }
 
@@ -51,8 +51,37 @@ void reverseList(std::unique_ptr<LLNode2<ValType>> & head)
 //		???
 template <typename Key, typename Data>
 class LLMap {
+	// ***** LLMap: Types *****
+public:
+	// key_type: type of key items
+	using key_type = Key;
+	// data_type: type of data items
+	using data_type = Data;
+
+	// ***** LLMap: Constructors, Destructors *****
+public:
+	// Default constructor
+	// Creates an empty data set
+	// ??? Guarantee
+	LLMap() : _head(nullptr)
+	{} 
+
+	// Default destructor
+	// No Throw Guarantee
+	~LLMap()
+	{}
+
+	// Big 5: LLMap must not have any other public member functions
+	// Copy ctor, move ctor, copy assignment op, and move assignment op deleted
+	LLMap(const LLMap & other) = delete;
+	LLMap(LLMap && other) = delete;
+	LLMap & operator=(const LLMap & other) = delete;
+	LLMap & operator=(const LLMap && other) = delete;
 
 
+	// ***** LLMap: Data Members *****
+private:
+	std::unique_ptr<LLNode2<std::pair<key_type, data_type>>> _head;
 
 }; // End class LLMap
 
