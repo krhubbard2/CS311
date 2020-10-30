@@ -16,17 +16,28 @@
 #define FILE_DP6_H_INCLUDED
 
 #include "llnode2.h"	
-#include <memory>
+#include <memory>		// for std::unique_ptr
 
 // reverseList
-// ??? Discription
+// Efficient reversing function for a Linked List of LLNode2
 // Pre:
-//		
+//	Valid LLNode2 unique pointer
 // ??? Guarantee
 template<typename ValType>
-void reverseList(unique_ptr<LLNode2<ValType>> & head)
+void reverseList(std::unique_ptr<LLNode2<ValType>> & head)
 {
+	std::unique_ptr<LLNode2<ValType>> newHead(nullptr);
+	std::unique_ptr<LLNode2<ValType>> currentHead(nullptr);
 
+	while(head != nullptr)
+	{
+		currentHead = head->_next;
+		head->_next = newHead;
+		newHead = head;
+		head = currentHead;
+	}
+	
+	head = newHead;
 }
 
 // **********************************************************************
