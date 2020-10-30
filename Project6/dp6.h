@@ -51,6 +51,7 @@ void reverseList(std::unique_ptr<LLNode2<ValType>> & head)
 //		???
 template <typename Key, typename Data>
 class LLMap {
+
 	// ***** LLMap: Types *****
 public:
 	// key_type: type of key items
@@ -71,14 +72,76 @@ public:
 	~LLMap()
 	{}
 
-	// Big 5: LLMap must not have any other public member functions
+	// Big 5: 
+	// LLMap must not have any other public member functions
 	// Copy ctor, move ctor, copy assignment op, and move assignment op deleted
 	LLMap(const LLMap & other) = delete;
 	LLMap(LLMap && other) = delete;
 	LLMap & operator=(const LLMap & other) = delete;
 	LLMap & operator=(const LLMap && other) = delete;
 
+	// ***** LLMap: Public Member Functions *****
+public:
+	// size
+	// Returns an integer of appropriate type 
+	// giving the number of key-value pairs in LLMap
+	/// ??? Guarantee
+	int size() const
+	{
 
+	}
+
+	// empty
+	// Returns a bool indicating if there are no key-balue pairs in LLMap
+	// ??? Guarantee
+	bool empty() const
+	{
+
+	}
+
+	// find
+	// Returns a const pointer to value of the key given if the 
+	// key is in LLMap, otherwise returns nullptr
+	// Pre:
+	//		
+	// ??? Guarantee
+	const data_type * find(key_type key) const
+	{
+
+	}
+
+	// insert
+	// If the key does not lie in LLMap then the key-value pair is inserted
+	// If key already lies in LLMap, overwrite with given key-value pair
+	// Pre:
+	//		
+	// ??? Guarantee
+	void insert(key_type key, data_type data)
+	{
+
+	}
+
+	// erase
+	// If key is found then erase the key-value pair
+	// If key isn't found do nothing
+	// Pre:
+	//		
+	// ??? Guarantee
+	void erase(key_type key)
+	{
+
+	}
+
+	// traverse
+	// Applies a function to every object in LLMap
+	// Pre:
+	//		
+	// ??? Guarantee
+	void traverse() const
+	{
+
+	}
+	
 	// ***** LLMap: Data Members *****
 private:
 	std::unique_ptr<LLNode2<std::pair<key_type, data_type>>> _head;
