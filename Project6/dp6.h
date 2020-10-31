@@ -17,7 +17,7 @@
 
 #include "llnode2.h"	
 #include <memory>		// for std::unique_ptr
-
+#include <functional>	// for std::function
 // reverseList
 // Efficient reversing function for a Linked List of LLNode2
 // Pre:
