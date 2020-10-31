@@ -137,7 +137,7 @@ public:
 	// Pre:
 	//		
 	// ??? Guarantee
-	void traverse() const
+	void traverse(std::function<void(key_type, data_type)>) const
 	{
 
 	}
