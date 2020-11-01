@@ -106,7 +106,7 @@ public:
 	// Pre:
 	//		
 	// ??? Guarantee
-	const data_type * find(key_type key) const
+	 data_type * find(key_type key) const
 	{
 		return nullptr; // DUMMY
 	}
