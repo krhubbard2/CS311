@@ -18,6 +18,7 @@
 #include "llnode2.h"	
 #include <memory>		// for std::unique_ptr
 #include <functional>	// for std::function
+
 // reverseList
 // Efficient reversing function for a Linked List of LLNode2
 // Pre:
@@ -26,18 +27,18 @@
 template<typename ValType>
 void reverseList(std::unique_ptr<LLNode2<ValType>> & head)
 {
-	std::unique_ptr<LLNode2<ValType>> newHead(nullptr);
-	std::unique_ptr<LLNode2<ValType>> currentHead(nullptr);
+	// std::unique_ptr<LLNode2<ValType>> newHead(nullptr);
+	// std::unique_ptr<LLNode2<ValType>> currentHead(nullptr);
 
-	while(head != nullptr)
-	{
-		currentHead = head->_next;
-		head->_next = newHead;
-		newHead = head;
-		head = currentHead;
-	}
+	// while(head != nullptr)
+	// {
+	// 	currentHead = head->_next;
+	// 	head->_next = newHead;
+	// 	newHead = head;
+	// 	head = currentHead;
+	// }
 
-	head = newHead;
+	// head = newHead;
 }
 
 // **********************************************************************
@@ -88,7 +89,7 @@ public:
 	/// ??? Guarantee
 	int size() const
 	{
-
+		return 0; // DUMMY
 	}
 
 	// empty
@@ -96,7 +97,7 @@ public:
 	// ??? Guarantee
 	bool empty() const
 	{
-
+		return true; // DUMMY
 	}
 
 	// find
@@ -107,7 +108,7 @@ public:
 	// ??? Guarantee
 	const data_type * find(key_type key) const
 	{
-
+		return nullptr; // DUMMY
 	}
 
 	// insert
