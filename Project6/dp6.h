@@ -18,6 +18,7 @@
 #include "llnode2.h"	
 #include <memory>		// for std::unique_ptr
 #include <functional>	// for std::function
+#include <cstddef>		// for std::size_t
 
 // reverseList
 // Efficient reversing function for a Linked List of LLNode2
@@ -87,9 +88,16 @@ public:
 	// Returns an integer of appropriate type 
 	// giving the number of key-value pairs in LLMap
 	/// ??? Guarantee
-	int size() const
+	size_t size() const
 	{
-		return 0; // DUMMY
+		auto it = _head.get();
+		std::size_t i = 0;
+		while (it)
+		{
+			it = it->_next.get();
+			++i;
+		}
+		return i;
 	}
 
 	// empty
@@ -97,7 +105,11 @@ public:
 	// ??? Guarantee
 	bool empty() const
 	{
-		return true; // DUMMY
+		if (_head == nullptr)
+		{
+			return true;
+		}
+		return false;
 	}
 
 	// find
@@ -108,7 +120,16 @@ public:
 	// ??? Guarantee
 	 data_type * find(key_type key) const
 	{
-		return nullptr; // DUMMY
+		auto it = _head.get();
+		while (it)
+		{
+			if (it->_data.first == key)
+			{
+				return &(it->_data.second);
+			}
+			it = it->_next.get();
+		}
+		return nullptr;
 	}
 
 	// insert
@@ -119,7 +140,13 @@ public:
 	// ??? Guarantee
 	void insert(key_type key, data_type data)
 	{
-
+		auto it = find(key);
+		if (it)
+		{
+			*it = data;
+			return;
+		}
+		push_front(_head, std::make_pair(key,data));
 	}
 
 	// erase
@@ -138,9 +165,14 @@ public:
 	// Pre:
 	//		
 	// ??? Guarantee
-	void traverse(std::function<void(key_type, data_type)>) const
+	void traverse(std::function<void(key_type, data_type)> func) const
 	{
-
+		auto it = _head.get();
+		while(it)
+		{
+			func(it->_data.first, it->_data.second);
+			it = it->_next.get();
+		}
 	}
 	
 	// ***** LLMap: Data Members *****
