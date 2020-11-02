@@ -27,18 +27,18 @@
 template<typename ValType>
 void reverseList(std::unique_ptr<LLNode2<ValType>> & head)
 {
-	// std::unique_ptr<LLNode2<ValType>> newHead(nullptr);
-	// std::unique_ptr<LLNode2<ValType>> currentHead(nullptr);
+	std::unique_ptr<LLNode2<ValType>> newHead(nullptr);
+	std::unique_ptr<LLNode2<ValType>> currentHead(nullptr);
 
-	// while(head != nullptr)
-	// {
-	// 	currentHead = head->_next;
-	// 	head->_next = newHead;
-	// 	newHead = head;
-	// 	head = currentHead;
-	// }
+	while(head != nullptr)
+	{
+		currentHead = std::move(head->_next);
+		head->_next = std::move(newHead);
+		newHead = std::move(head);
+		head = std::move(currentHead);
+	}
 
-	// head = newHead;
+	head = std::move(newHead);
 }
 
 // **********************************************************************
