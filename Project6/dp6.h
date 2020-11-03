@@ -1,7 +1,7 @@
 // dp6.h
 // Kelby Hubbard, Rose Peters, and Yali Wang
 // Started: 2020-10-30
-// Updated: 2020-10-30
+// Updated: 2020-11-02
 
 // For CS 311 Fall 2020
 // Header for Project 6 functions
@@ -24,7 +24,7 @@
 // Efficient reversing function for a Linked List of LLNode2
 // Pre:
 //	Valid LLNode2 unique pointer
-// ??? Guarantee
+// Strong Guarantee
 template<typename ValType>
 void reverseList(std::unique_ptr<LLNode2<ValType>> & head)
 {
@@ -87,7 +87,7 @@ public:
 	// size
 	// Returns an integer of appropriate type 
 	// giving the number of key-value pairs in LLMap
-	/// ??? Guarantee
+	// Strong Guarantee
 	size_t size() const
 	{
 		auto it = _head.get();
@@ -102,7 +102,7 @@ public:
 
 	// empty
 	// Returns a bool indicating if there are no key-balue pairs in LLMap
-	// ??? Guarantee
+	// No-Throw Guarantee
 	bool empty() const
 	{
 		if (_head == nullptr)
@@ -117,7 +117,7 @@ public:
 	// key is in LLMap, otherwise returns nullptr
 	// Pre:
 	//		
-	// ??? Guarantee
+	// No-Throw Guarantee
 	 data_type * find(key_type key) const
 	{
 		auto it = _head.get();
@@ -137,34 +137,63 @@ public:
 	// If key already lies in LLMap, overwrite with given key-value pair
 	// Pre:
 	//		
-	// ??? Guarantee
-	void insert(key_type key, data_type data)
+	//  Guarantee
+	data_type* find(const key_type& key)
 	{
-		auto it = find(key);
-		if (it)
+		auto it = _head.get();
+		while (it)
 		{
-			*it = data;
-			return;
+			if (it->_data.first == key)
+			{
+				return &(it->_data.second);
+			}
+			it = it->_next.get();
 		}
-		push_front(_head, std::make_pair(key,data));
+		return nullptr;
 	}
 
+	const data_type* find(const key_type& key) const
+	{
+		auto it = _head.get();
+		while (it)
+		{
+			if (it->_data.first == key)
+			{
+				return &(it->_data.second);
+			}
+			it = it->_next.get();
+		}
+		return nullptr;
+	}
+	
 	// erase
 	// If key is found then erase the key-value pair
 	// If key isn't found do nothing
 	// Pre:
 	//		
-	// ??? Guarantee
+	// Basic Guarantee
 	void erase(key_type key)
 	{
-
+		auto it = _head.get();
+		auto it2 = _head.get();
+		while (it) {
+			if (it->_data.first == key) {
+				std::swap(it2->_next, it->_next);
+				it->_next = nullptr;
+				it = nullptr;
+			}
+			else {
+				it2 = it;
+				it = it->_next.get();
+			}
+		}
 	}
 
 	// traverse
 	// Applies a function to every object in LLMap
 	// Pre:
 	//		
-	// ??? Guarantee
+	// Basic Guarantee
 	void traverse(std::function<void(key_type, data_type)> func) const
 	{
 		auto it = _head.get();
