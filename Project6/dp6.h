@@ -48,9 +48,10 @@ void reverseList(std::unique_ptr<LLNode2<ValType>>& head)
 // class LLMap
 // Templated linked list map
 // Invariants:
-//		???
-// Type requirements:
-//		???
+//     Either _next is empty or _next points to an LLNode2 (and thus
+//      _next points to an empty-ptr-terminated Linked List of LLNode2).
+// Requirements on Types:
+//     Key and Data must have a copy ctor and a (non-throwing) dctor.
 template <typename Key, typename Data>
 class LLMap {
 
@@ -112,11 +113,11 @@ public:
 		return false;
 	}
 
-	// find
+	// find and const find
 	// Returns a const pointer to value of the key given if the 
 	// key is in LLMap, otherwise returns nullptr
 	// Pre:
-	//		
+	//		key has a valid type
 	// No-Throw Guarantee
 	data_type* find(const key_type& key)
 	{
@@ -149,7 +150,7 @@ public:
 	// If the key does not lie in LLMap then the key-value pair is inserted
 	// If key already lies in LLMap, overwrite with given key-value pair
 	// Pre:
-	//		
+	//		key, data are of valid type
 	// Basic Guarantee
 	void insert(key_type key, data_type data)
 	{
@@ -166,7 +167,7 @@ public:
 	// If key is found then erase the key-value pair
 	// If key isn't found do nothing
 	// Pre:
-	//		
+	//		key has a valid type
 	// Basic Guarantee
 	void erase(key_type key)
 	{
@@ -188,7 +189,7 @@ public:
 	// traverse
 	// Applies a function to every object in LLMap
 	// Pre:
-	//		
+	//		func has two arguments of valid type
 	// Basic Guarantee
 	void traverse(std::function<void(key_type, data_type)> func) const
 	{
