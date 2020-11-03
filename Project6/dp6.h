@@ -1,7 +1,7 @@
 // dp6.h
 // Kelby Hubbard, Rose Peters, and Yali Wang
 // Started: 2020-10-30
-// Updated: 2020-11-02
+// Updated: 2020-10-30
 
 // For CS 311 Fall 2020
 // Header for Project 6 functions
@@ -24,14 +24,14 @@
 // Efficient reversing function for a Linked List of LLNode2
 // Pre:
 //	Valid LLNode2 unique pointer
-// Strong Guarantee
+// ??? Guarantee
 template<typename ValType>
-void reverseList(std::unique_ptr<LLNode2<ValType>> & head)
+void reverseList(std::unique_ptr<LLNode2<ValType>>& head)
 {
 	std::unique_ptr<LLNode2<ValType>> newHead(nullptr);
 	std::unique_ptr<LLNode2<ValType>> currentHead(nullptr);
 
-	while(head != nullptr)
+	while (head != nullptr)
 	{
 		currentHead = std::move(head->_next);
 		head->_next = std::move(newHead);
@@ -65,9 +65,9 @@ public:
 public:
 	// Default constructor
 	// Creates an empty data set
-	// ??? Guarantee
+	// Strong Guarantee
 	LLMap() : _head(nullptr)
-	{} 
+	{}
 
 	// Default destructor
 	// No Throw Guarantee
@@ -77,10 +77,10 @@ public:
 	// Big 5: 
 	// LLMap must not have any other public member functions
 	// Copy ctor, move ctor, copy assignment op, and move assignment op deleted
-	LLMap(const LLMap & other) = delete;
-	LLMap(LLMap && other) = delete;
-	LLMap & operator=(const LLMap & other) = delete;
-	LLMap & operator=(const LLMap && other) = delete;
+	LLMap(const LLMap& other) = delete;
+	LLMap(LLMap&& other) = delete;
+	LLMap& operator=(const LLMap& other) = delete;
+	LLMap& operator=(const LLMap&& other) = delete;
 
 	// ***** LLMap: Public Member Functions *****
 public:
@@ -118,26 +118,6 @@ public:
 	// Pre:
 	//		
 	// No-Throw Guarantee
-	 data_type * find(key_type key) const
-	{
-		auto it = _head.get();
-		while (it)
-		{
-			if (it->_data.first == key)
-			{
-				return &(it->_data.second);
-			}
-			it = it->_next.get();
-		}
-		return nullptr;
-	}
-
-	// insert
-	// If the key does not lie in LLMap then the key-value pair is inserted
-	// If key already lies in LLMap, overwrite with given key-value pair
-	// Pre:
-	//		
-	//  Guarantee
 	data_type* find(const key_type& key)
 	{
 		auto it = _head.get();
@@ -165,7 +145,23 @@ public:
 		}
 		return nullptr;
 	}
-	
+	// insert
+	// If the key does not lie in LLMap then the key-value pair is inserted
+	// If key already lies in LLMap, overwrite with given key-value pair
+	// Pre:
+	//		
+	// Basic Guarantee
+	void insert(key_type key, data_type data)
+	{
+		auto it = find(key);
+		if (it)
+		{
+			*it = data;
+			return;
+		}
+		push_front(_head, std::make_pair(key, data));
+	}
+
 	// erase
 	// If key is found then erase the key-value pair
 	// If key isn't found do nothing
@@ -197,13 +193,13 @@ public:
 	void traverse(std::function<void(key_type, data_type)> func) const
 	{
 		auto it = _head.get();
-		while(it)
+		while (it)
 		{
 			func(it->_data.first, it->_data.second);
 			it = it->_next.get();
 		}
 	}
-	
+
 	// ***** LLMap: Data Members *****
 private:
 	std::unique_ptr<LLNode2<std::pair<key_type, data_type>>> _head;
