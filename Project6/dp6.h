@@ -83,7 +83,7 @@ public:
 	// size
 	// Returns an integer of appropriate type 
 	// giving the number of key-value pairs in LLMap
-	// Strong Guarantee
+	// No-Throw Guarantee
 	size_t size() const
 	{
 		auto it = _head.get();
@@ -146,7 +146,7 @@ public:
 	// If key already lies in LLMap, overwrite with given key-value pair
 	// Pre:
 	//		key, data are of valid type
-	// Basic Guarantee
+	// Strong Guarantee
 	void insert(key_type key, data_type data)
 	{
 		auto it = find(key);
@@ -163,7 +163,7 @@ public:
 	// If key isn't found do nothing
 	// Pre:
 	//		key has a valid type
-	// Basic Guarantee
+	// No-Throw Guarantee
 	void erase(key_type key)
 	{
 		auto it = _head.get();
