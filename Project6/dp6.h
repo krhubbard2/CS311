@@ -24,7 +24,7 @@
 // Efficient reversing function for a Linked List of LLNode2
 // Pre:
 //	Valid LLNode2 unique pointer
-// ??? Guarantee
+// No-Throw Guarantee
 template<typename ValType>
 void reverseList(std::unique_ptr<LLNode2<ValType>>& head)
 {
@@ -71,7 +71,7 @@ public:
 	{}
 
 	// Default destructor
-	// No Throw Guarantee
+	// No-Throw Guarantee
 	~LLMap()
 	{}
 
