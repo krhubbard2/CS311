@@ -28,6 +28,63 @@
 // For std::vector
 #include <iterator>
 // For std::distance
+#include <memory>
+
+
+// Struct BSTNode -- Binary Search Tree Node
+// Pre:
+//     ???
+// Requirements on Types:
+//     ???	
+template <typename ValType>
+struct BSTNode {
+
+    ValType                 		  _data; 		// Data for this node
+    std::unique_ptr<BSTNode<ValType>> _left; 
+    std::unique_ptr<BSTNode<ValType>> _right;
+
+
+    // 1- & 2-param ctor
+    // _data is set to data (given). _next is set to next, if given, or
+    // nullptr if not.
+    // No-Throw Guarantee
+    explicit BSTNode(const ValType& data,
+        std::unique_ptr<BSTNode>& left = nullptr,
+        std::unique_ptr<BSTNode>& right = nullptr)
+        : _data(data),
+          _left(left),
+          _right(right)
+    {}
+
+    // dctor
+    // Iterative: avoid recursive destruction.
+    // ??? Guarantee
+    ~BSTNode() = default;
+
+};
+
+// insert
+// Pre:
+//     ???
+// Requirements on Types:
+//     ???
+template<typename ValType>
+void insert(std::unique_ptr<BSTNode<ValType>> & head, const ValType & item)
+{
+
+}
+
+
+// traverse
+// Pre:
+//     ???
+// Requirements on Types:
+//     ???
+template<typename ValType>
+void traverse(std::unique_ptr<BSTNode<ValType>> head  /*, iterator*/) 
+{
+
+}
 
 
 // treesort
