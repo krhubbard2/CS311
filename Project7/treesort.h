@@ -89,16 +89,16 @@ void insert(std::unique_ptr<BSTNode<ValType>> & head, const ValType & item)
 //     ???
 // Requirements on Types:
 //     ???
-template<typename ValType>
-void traverse(std::unique_ptr<BSTNode<ValType>> head  /*, iterator*/) 
+template<typename ValType, typename FDIter>
+void traverse(std::unique_ptr<BSTNode<ValType>> head, FDIter &iter) 
 {
-if (head == nullptr) {
-		return;
-}
-	traverse(head->_left, iter);
-	// missing the write data part
-	iter++;
-	traverse(head->_right, iter);
+    if (head == nullptr) {
+	return;
+    }
+    traverse(head->_left, iter);
+    // missing the write data part
+    iter++;
+    traverse(head->_right, iter);
 }
 
 
@@ -115,13 +115,23 @@ void treesort(FDIter first, FDIter last)
 {
     // Value is the type that FDIter points to
     using Value = typename std::iterator_traits<FDIter>::value_type;
-
     // THE FOLLOWING IS DUMMY CODE. IT WILL PASS ALL TESTS, BUT IT DOES
     // NOT MEET THE REQUIREMENTS OF THE PROJECT.
     //std::vector<Value> buff(std::distance(first, last));
     //std::move(first, last, buff.begin());
     //std::stable_sort(buff.begin(), buff.end());
     //std::move(buff.begin(), buff.end(), first);
+    if (std::distance(first, last) == 0) {
+    return;
+    }
+
+    std::unique_ptr<BSTNode<Value>> head = std::make_unique<BSTNode<Value>>(*first);
+    FDIter temp = first;
+    while (std::distance(temp, last) != 1) {
+    std::advance(temp, 1);
+    insert(head.get(), *temp);
+    }
+    traverse(head.get(), first);
 }
 
 
