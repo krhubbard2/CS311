@@ -50,8 +50,8 @@ struct BSTNode {
     // nullptr if not.
     // No-Throw Guarantee
     explicit BSTNode(const ValType& data,
-        std::unique_ptr<BSTNode>& left = nullptr,
-        std::unique_ptr<BSTNode>& right = nullptr)
+        std::unique_ptr<BSTNode<ValType>> left = nullptr,
+        std::unique_ptr<BSTNode<ValType>> right = nullptr)
         : _data(data),
           _left(left),
           _right(right)
@@ -73,15 +73,17 @@ struct BSTNode {
 template<typename ValType>
 void insert(std::unique_ptr<BSTNode<ValType>> & head, const ValType & item)
 {
-    if (head == nullptr) {
+    if (head == nullptr)
+    {
         head = std::make_unique<BSTNode<ValType>>(item);
         return;
     }
-    if (item < head->item) {
-        insert(head->_left->item, item);
+    if (item < head->_data) 
+    {
+        insert(head->_left, item);
     }
     else {
-        insert(head->_right->item, item);
+        insert(head->_right, item);
     }
 }
 
@@ -94,14 +96,14 @@ void insert(std::unique_ptr<BSTNode<ValType>> & head, const ValType & item)
 //     ValType must have a < operator
 //     FDIter must be a forward iterator
 template<typename ValType, typename FDIter>
-void traverse(std::unique_ptr<BSTNode<ValType>> head, FDIter &iter) 
+void traverse(std::unique_ptr<BSTNode<ValType>> & head, FDIter &iter) 
 {
-    if (head == nullptr) {
-    return;
+    if (head == nullptr) 
+    {
+        return;
     }
     traverse(head->_left, iter);
-    // missing the write data part
-    iter++;
+    *iter++ = head->_data;
     traverse(head->_right, iter);
 }
 
@@ -133,10 +135,10 @@ void treesort(FDIter first, FDIter last)
     while (std::distance(temp, last) != 1) 
     {
         std::advance(temp, 1);
-        insert(head.get(), *temp);
+        insert(head, *temp);
     }
-    
-    traverse(head.get(), first);
+
+    traverse(head, first);
 }
 
 
