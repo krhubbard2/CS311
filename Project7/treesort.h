@@ -33,7 +33,7 @@
 
 // Struct BSTNode -- Binary Search Tree Node
 // Pre:
-//     ???
+//     Both _left and _right are nullptr
 // Requirements on Types:
 //     ValType must have a copy constructor
 //     ValType must have a < operator
@@ -56,19 +56,19 @@ struct BSTNode {
           
     {
         _left = std::move(left);
-          _right= std::move(right);
+        _right= std::move(right);
     }
 
     // dctor
     // Iterative: avoid recursive destruction.
-    // ??? Guarantee
+    // No-Throw Guarantee
     ~BSTNode() = default;
 
 };
 
 // insert
 // Pre:
-//     ???
+//     Smart pointer for a binary tree and item
 // Requirements on Types:
 //     ValType must have a copy constructor
 //     ValType must have a < operator
@@ -92,7 +92,7 @@ void insert(std::unique_ptr<BSTNode<ValType>> & head, const ValType & item)
 
 // traverse
 // Pre:
-//     ???
+//     iter is a valid forward iterator pointing to first item
 // Requirements on Types:
 //     ValType must have a copy constructor
 //     ValType must have a < operator
@@ -113,13 +113,13 @@ void traverse(std::unique_ptr<BSTNode<ValType>> & head, FDIter &iter)
 // treesort
 // Sort a given range using Treesort.
 // Pre:
-//     ???
+//     (first, last) is a valid range
 // Requirements on Types:
 //     ValType must have a copy constructor
 //     ValType must have a < operator
-//     FDIter must be a forward iterator
+//     FDIter must be a valid forward iterator
 // Exception safety guarantee:
-//     ???
+//     Strong Guarantee
 template<typename FDIter>
 void treesort(FDIter first, FDIter last)
 {
