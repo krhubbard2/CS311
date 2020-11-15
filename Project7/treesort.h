@@ -53,9 +53,11 @@ struct BSTNode {
         std::unique_ptr<BSTNode<ValType>> left = nullptr,
         std::unique_ptr<BSTNode<ValType>> right = nullptr)
         : _data(data),
-          _left(left),
-          _right(right)
-    {}
+          
+    {
+        _left = std::move(left);
+          _right= std::move(right);
+    }
 
     // dctor
     // Iterative: avoid recursive destruction.
