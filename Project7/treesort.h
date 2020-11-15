@@ -27,7 +27,7 @@
 #include <vector>
 // For std::vector
 #include <iterator>
-// For std::distance
+// For std::distance, std::iterator_traits
 #include <memory>
 
 
@@ -35,13 +35,14 @@
 // Pre:
 //     ???
 // Requirements on Types:
-//     ???	
+//     ValType must have a copy constructor
+//     ValType must have a < operator
 template <typename ValType>
 struct BSTNode {
 
-    ValType                 		  _data; 		// Data for this node
-    std::unique_ptr<BSTNode<ValType>> _left; 
-    std::unique_ptr<BSTNode<ValType>> _right;
+    ValType                           _data;        // Data for this node
+    std::unique_ptr<BSTNode<ValType>> _left;        // left node or nullptr
+    std::unique_ptr<BSTNode<ValType>> _right;       // right node or nullptr
 
 
     // 1- & 2-param ctor
@@ -67,20 +68,21 @@ struct BSTNode {
 // Pre:
 //     ???
 // Requirements on Types:
-//     ???
+//     ValType must have a copy constructor
+//     ValType must have a < operator
 template<typename ValType>
 void insert(std::unique_ptr<BSTNode<ValType>> & head, const ValType & item)
 {
-	if (head == nullptr) {
-		head = std::make_unique<BSTNode<ValType>>(item);
-		return;
-	}
-	if (item < head->item) {
-		insert(head->_left->item, item);
-	}
-	else {
-		insert(head->_right->item, item);
-	}
+    if (head == nullptr) {
+        head = std::make_unique<BSTNode<ValType>>(item);
+        return;
+    }
+    if (item < head->item) {
+        insert(head->_left->item, item);
+    }
+    else {
+        insert(head->_right->item, item);
+    }
 }
 
 
@@ -88,12 +90,14 @@ void insert(std::unique_ptr<BSTNode<ValType>> & head, const ValType & item)
 // Pre:
 //     ???
 // Requirements on Types:
-//     ???
+//     ValType must have a copy constructor
+//     ValType must have a < operator
+//     FDIter must be a forward iterator
 template<typename ValType, typename FDIter>
 void traverse(std::unique_ptr<BSTNode<ValType>> head, FDIter &iter) 
 {
     if (head == nullptr) {
-	return;
+    return;
     }
     traverse(head->_left, iter);
     // missing the write data part
@@ -107,7 +111,9 @@ void traverse(std::unique_ptr<BSTNode<ValType>> head, FDIter &iter)
 // Pre:
 //     ???
 // Requirements on Types:
-//     ???
+//     ValType must have a copy constructor
+//     ValType must have a < operator
+//     FDIter must be a forward iterator
 // Exception safety guarantee:
 //     ???
 template<typename FDIter>
@@ -115,22 +121,21 @@ void treesort(FDIter first, FDIter last)
 {
     // Value is the type that FDIter points to
     using Value = typename std::iterator_traits<FDIter>::value_type;
-    // THE FOLLOWING IS DUMMY CODE. IT WILL PASS ALL TESTS, BUT IT DOES
-    // NOT MEET THE REQUIREMENTS OF THE PROJECT.
-    //std::vector<Value> buff(std::distance(first, last));
-    //std::move(first, last, buff.begin());
-    //std::stable_sort(buff.begin(), buff.end());
-    //std::move(buff.begin(), buff.end(), first);
-    if (std::distance(first, last) == 0) {
-    return;
+ 
+    if (std::distance(first, last) == 0)
+    {
+      return;
     }
 
     std::unique_ptr<BSTNode<Value>> head = std::make_unique<BSTNode<Value>>(*first);
     FDIter temp = first;
-    while (std::distance(temp, last) != 1) {
-    std::advance(temp, 1);
-    insert(head.get(), *temp);
+
+    while (std::distance(temp, last) != 1) 
+    {
+        std::advance(temp, 1);
+        insert(head.get(), *temp);
     }
+    
     traverse(head.get(), first);
 }
 
