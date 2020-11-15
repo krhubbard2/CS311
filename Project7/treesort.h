@@ -52,7 +52,7 @@ struct BSTNode {
     explicit BSTNode(const ValType& data,
         std::unique_ptr<BSTNode<ValType>> left = nullptr,
         std::unique_ptr<BSTNode<ValType>> right = nullptr)
-        : _data(data),
+        : _data(data)
           
     {
         _left = std::move(left);
