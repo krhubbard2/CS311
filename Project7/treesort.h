@@ -71,7 +71,16 @@ struct BSTNode {
 template<typename ValType>
 void insert(std::unique_ptr<BSTNode<ValType>> & head, const ValType & item)
 {
-
+	if (head == nullptr) {
+		head = std::make_unique<BSTNode<ValType>>(item);
+		return;
+	}
+	if (item < head->item) {
+		insert(head->_left->item, item);
+	}
+	else {
+		insert(head->_right->item, item);
+	}
 }
 
 
@@ -83,7 +92,13 @@ void insert(std::unique_ptr<BSTNode<ValType>> & head, const ValType & item)
 template<typename ValType>
 void traverse(std::unique_ptr<BSTNode<ValType>> head  /*, iterator*/) 
 {
-
+if (head == nullptr) {
+		return;
+}
+	traverse(head->_left, iter);
+	// missing the write data part
+	iter++;
+	traverse(head->_right, iter);
 }
 
 
@@ -103,10 +118,10 @@ void treesort(FDIter first, FDIter last)
 
     // THE FOLLOWING IS DUMMY CODE. IT WILL PASS ALL TESTS, BUT IT DOES
     // NOT MEET THE REQUIREMENTS OF THE PROJECT.
-    std::vector<Value> buff(std::distance(first, last));
-    std::move(first, last, buff.begin());
-    std::stable_sort(buff.begin(), buff.end());
-    std::move(buff.begin(), buff.end(), first);
+    //std::vector<Value> buff(std::distance(first, last));
+    //std::move(first, last, buff.begin());
+    //std::stable_sort(buff.begin(), buff.end());
+    //std::move(buff.begin(), buff.end(), first);
 }
 
 
