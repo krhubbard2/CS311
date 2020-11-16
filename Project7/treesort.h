@@ -1,7 +1,7 @@
 // treesort.h
 // Kelby Hubbard, Rose Peters, and Yali Wang
 // Started: 2020-11-09
-// Updated: 2020-11-09
+// Updated: 2020-11-15
 
 // For CS 311 Fall 2020
 // Header for function template treesort
@@ -17,15 +17,8 @@
 
 #include <iterator>
 // For std::iterator_traits
-
-// *******************************************************
-// * YOU MIGHT WANT TO GET RID OF THE FOLLOWING INCLUDES *
-// *******************************************************
-
 #include <algorithm>
-// For std::stable_sort, std::move
-#include <vector>
-// For std::vector
+// For std::move
 #include <iterator>
 // For std::distance, std::iterator_traits
 #include <memory>
@@ -33,7 +26,9 @@
 
 // Struct BSTNode -- Binary Search Tree Node
 // Pre:
-//     Both _left and _right are nullptr
+//     _left is left node or a nullptr
+//     _right is right node or a nullptr
+//     _data = data
 // Requirements on Types:
 //     ValType must have a copy constructor
 //     ValType must have a < operator
@@ -72,6 +67,8 @@ struct BSTNode {
 // Requirements on Types:
 //     ValType must have a copy constructor
 //     ValType must have a < operator
+// Exception safety guarantee:
+// Strong Guarantee
 template<typename ValType>
 void insert(std::unique_ptr<BSTNode<ValType>> & head, const ValType & item)
 {
@@ -97,6 +94,8 @@ void insert(std::unique_ptr<BSTNode<ValType>> & head, const ValType & item)
 //     ValType must have a copy constructor
 //     ValType must have a < operator
 //     FDIter must be a forward iterator
+// Exception safety guarantee:
+// No-Throw Guarantee
 template<typename ValType, typename FDIter>
 void traverse(std::unique_ptr<BSTNode<ValType>> & head, FDIter &iter) 
 {
@@ -145,4 +144,3 @@ void treesort(FDIter first, FDIter last)
 
 
 #endif //#ifndef FILE_TREESORT_H_INCLUDED
-
