@@ -41,9 +41,98 @@ const std::string test_suite_name =
 // *********************************************************************
 
 
-TEST_CASE("DUMMY")
+TEST_CASE("Squarer: negative ints")
 {
-    // DUMMY TEST CASE; REWRITE THIS AND ADD MORE!!!
+	Squarer sq;
+	SUBCASE("Square -1") {
+		INFO("-1 squared is 1");
+		REQUIRE(sq(-1) == 1);
+	}
+
+	SUBCASE("Square -10") {
+		INFO("-10 squared is 100");
+		REQUIRE(sq(-10) == 100);
+	}
+	SUBCASE("Square -999") {
+		INFO("-999 squared is 998001");
+		REQUIRE(sq(-999) == 998001);
+	}
+}
+
+TEST_CASE("Squarer: positive ints")
+{
+	Squarer sq;
+
+	SUBCASE("Square 0") {
+		INFO("0 squared is 0");
+		REQUIRE(sq(0) == 0);
+	}
+
+	SUBCASE("Square 1") {
+		INFO("1 squared is 1");
+		REQUIRE(sq(1) == 1);
+	}
+
+	SUBCASE("Square 2") {
+		INFO("2 squared is 4");
+		REQUIRE(sq(2) == 4);
+	}
+	SUBCASE("Square 25") {
+		INFO("25 squared is 625");
+		REQUIRE(sq(25) == 625);
+	}
+}
+
+TEST_CASE("Squarer: doubles") {
+	Squarer sq;
+	
+	SUBCASE("Square 1.2") {
+		INFO("1.2 squared is 1.44");
+		REQUIRE(sq(1.2) == doctest::Approx(1.44));
+	}
+
+	SUBCASE("Square 4.99") {
+		INFO("4.99 squared is 24.9001");
+		REQUIRE(sq(4.99) == doctest::Approx(24.9001));
+	}
+
+	SUBCASE("Square 7.40") {
+		INFO("7.40 squared is 54.76");
+		REQUIRE(sq(7.40) == doctest::Approx(54.76));
+	}
+}
+
+TEST_CASE("Squarer: negative doubles") {
+	Squarer sq;
+
+	SUBCASE("Square -1.2") {
+		INFO("-1.2 squared is 1.44");
+		REQUIRE(sq(-1.2) == doctest::Approx(1.44));
+	}
+
+	SUBCASE("Square -4.99") {
+		INFO("-4.99 squared is 24.9001");
+		REQUIRE(sq(-4.99) == doctest::Approx(24.9001));
+	}
+
+	SUBCASE("Square -7.40") {
+		INFO("-7.40 squared is 54.76");
+		REQUIRE(sq(-7.40) == doctest::Approx(54.76));
+	}
+}
+
+TEST_CASE("Squarer: const") {
+	const Squarer sq;
+	SUBCASE("Square 63") {
+		INFO("63 squared is 3969");
+		REQUIRE(sq(63) ==3969);
+	}
+
+	SUBCASE("Square 7") {
+		INFO("7 squared is 49");
+		REQUIRE(sq(7) == 49);
+	}
+
 }
 
 
