@@ -1,12 +1,19 @@
-// squarer_test.cpp  SKELETON
-// Glenn G. Chappell
-// 2020-11-20
-//
+// squarer_test.cpp 
+// Kelby Hubbard, Rose Peters, and Yali Wang
+// Started: 2020-11-20
+// Updated: 2020-11-21
+
 // For CS 311 Fall 2020
 // Test program for class Squarer
 // For Project 8, Exercise B
 // Uses the "doctest" unit-testing framework, version 2
 // Requires doctest.h, squarer.h
+
+// CREDIT:
+// This file is based off of the skeleton file squarer_test.cpp
+// written by Glenn G. Chappell which can be found at
+// https://github.com/ggchappell/cs311-2020-03
+
 
 // Includes for code to be tested
 #include "squarer.h"         // For class Squarer
