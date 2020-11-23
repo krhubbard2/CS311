@@ -71,7 +71,7 @@ int main()
 	std::cout << "Number of distinct words: " << wordmap.size() << std::endl;
 	std::cout << std::endl;
 	for (auto it = wordcount.begin(); it != wordcount.end(); it++) {
-			std::cout << it->first << ":" << it->second << std::endl;
+			std::cout << it->first << ": " << it->second << std::endl;
 	}
 
 }
