@@ -26,7 +26,7 @@ int main()
 		fin.open(file);
 
 		// If file opens correctly exit loop.
-		if(fin.is_open())
+		if (fin.is_open())
 		{
 			break;
 		}
@@ -35,10 +35,11 @@ int main()
 	}
 
 	std::map<string, std::set<string>> wordmap;
+	std::map<string, int> wordcount;
 	string current;
 	string next;
 
-	if(fin.is_open())
+	if (fin.is_open())
 	{
 		while (true)
 		{
@@ -57,6 +58,7 @@ int main()
 				}
 			}
 			wordmap[current].insert(next);
+			wordcount[current] += 1;
 			current = next;
 		}
 	}
@@ -67,6 +69,9 @@ int main()
 	}
 
 	std::cout << "Number of distinct words: " << wordmap.size() << std::endl;
-
+	std::cout << std::endl;
+	for (auto it = wordcount.begin(); it != wordcount.end(); it++) {
+			std::cout << it->first << ":" << it->second << std::endl;
+	}
 
 }
