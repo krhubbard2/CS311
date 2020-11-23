@@ -34,6 +34,8 @@ public:
     Num operator()(const Num & k) const
     {
         return k * k;
+        //return 0; to fail tests
+
     }
 
     // We use automatically generated default ctor & Big 5.
