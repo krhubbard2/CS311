@@ -65,7 +65,7 @@ int main()
 	else
 	{
 		std::cout << "Invalid file." << std::endl;
-		// Break or something here?
+		exit(1); // Break or something here?
 	}
 
 	std::cout << "Number of distinct words: " << wordmap.size() << std::endl;
