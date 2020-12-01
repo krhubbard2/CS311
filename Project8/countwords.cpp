@@ -38,32 +38,38 @@ int main()
 	std::map<string, int> wordcount;
 	string current;
 	string next;
-
-	while (true)
+	
+	if (fin.is_open())
 	{
-		if (current == "")
+		while (true)
 		{
-			fin >> current;
-		}
-
-		fin >> next;
-
-		if (!fin)
-		{
-			if (fin.eof())
+			if (current == "")
 			{
-				wordmap[current].insert(""); // what if the file is emtpy? Should there be 1 word or 0 word? 
-				break;
+				fin >> current;
 			}
-			// what if the error is not cause by end of file? Would exiting appropraite here? Depend on how chappell want it to be handled. 
-			else {
-				exit(1);  //Error exit failure
+
+			fin >> next;
+
+			if (!fin)
+			{
+				if (fin.eof())
+				{
+					wordmap[current].insert(""); // what if the file is emtpy? Should there be 1 word or 0 word? 
+					break;
+				}
+				else {
+					exit(1);  //Error exit failure
+				}
 			}
+			wordmap[current].insert(next);
+			wordcount[current] += 1;
+			current = next;
 		}
-		wordmap[current].insert(next);
-		wordcount[current] += 1;
-		current = next;
 	}
+		else{
+			std::cout << "Invalid file." << std::endl;
+
+		}
 	
 	std::cout << "Number of distinct words: " << wordmap.size() << std::endl;
 	std::cout << std::endl;
